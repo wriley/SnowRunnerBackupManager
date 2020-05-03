@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FarmSimBackupManager
+namespace SnowRunnerBackupManager
 {
     static class Program
     {
@@ -18,7 +18,7 @@ namespace FarmSimBackupManager
         [STAThread]
         static void Main()
         {
-            const string appName = "FarmSimBackupManager";
+            const string appName = "SnowRunnerBackupManager";
             bool createdNew;
 
             mutex = new Mutex(true, appName, out createdNew);

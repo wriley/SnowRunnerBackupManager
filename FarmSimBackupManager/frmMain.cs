@@ -4,35 +4,33 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Globalization;
 using System.Linq;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace FarmSimBackupManager
+namespace SnowRunnerBackupManager
 {
     public partial class frmMain : Form
     {
         public string backupFolder;
-        public string farmsimVersion;
         private string saveGamePath;
         private string saveGamePathRoot;
         private string timestampString = "yyyyMMdd-HHmmss";
+        private string accountId;
         private List<TreeNode> unselectableSaveNodes = new List<TreeNode>();
         private List<TreeNode> unselectableBackupNodes = new List<TreeNode>();
-        private List<FarmSimSaveGame> mySaveGames = new List<FarmSimSaveGame>();
-        private List<FarmSimSaveGame> backupSaveGames = new List<FarmSimSaveGame>();
+        private List<SnowRunnerSaveGame> mySaveGames = new List<SnowRunnerSaveGame>();
+        private List<SnowRunnerSaveGame> backupSaveGames = new List<SnowRunnerSaveGame>();
 
-        private struct FarmSimSaveGame
+        private struct SnowRunnerSaveGame
         {
-            public string directoryName;
-            public DateTime directoryChanged;
-            public string savegameName;
-            public string mapTitle;
-            public string playerName;
-            public string saveDate;
-            public string backupName;
-            public Int32 money;
+            public DateTime saveDate;
+            public string rank;
+            public string experience;
+            public string money;
         }
 
         public frmMain()
@@ -44,9 +42,8 @@ namespace FarmSimBackupManager
         {
             LoadSettings();
 
-            if (!Directory.Exists(backupFolder) || farmsimVersion == "")
+            if (!Directory.Exists(backupFolder))
             {
-                farmsimVersion = "FarmingSimulator2019";
                 MessageBox.Show("You need to set your options");
                 frmOptions frmOptions = new frmOptions(this);
                 frmOptions.Show(this);
@@ -54,26 +51,33 @@ namespace FarmSimBackupManager
 
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             DebugLog("Found My Documents path: " + path);
-            // C:\Users\Computer User\Documents\My Games\FarmingSimulator2017
-            saveGamePathRoot = path + Path.DirectorySeparatorChar + "My Games";
-            saveGamePath = saveGamePathRoot + Path.DirectorySeparatorChar + farmsimVersion;
+            // C:\Users\Computer User\Documents\My Games\SnowRunner\base\storage\cfe0fa55393049d0b040dc143ae99585
+            saveGamePathRoot = path + Path.DirectorySeparatorChar + "My Games" + Path.DirectorySeparatorChar + 
+                "SnowRunner" + Path.DirectorySeparatorChar + "base" + Path.DirectorySeparatorChar + "storage";
+            const string keyName = "HKEY_CURRENT_USER\\Software\\Epic Games\\Unreal Engine\\Identifiers";
+            accountId = (string) Registry.GetValue(keyName, "AccountId", "NONE");
 
-            RefreshLists();
+            if (accountId == "NONE")
+            {
+                DebugLog("Error: accountId not found in registry");
+            }
+            else
+            {
+                saveGamePath = saveGamePathRoot + Path.DirectorySeparatorChar + accountId;
+                RefreshLists();
+            }
         }
 
         private void LoadSettings()
         {
             backupFolder = Properties.Settings.Default.backupFolder;
-            farmsimVersion = Properties.Settings.Default.version;
         }
 
         public void SaveSettings()
         {
-            DebugLog("version: " + farmsimVersion);
             Properties.Settings.Default.backupFolder = backupFolder;
-            Properties.Settings.Default.version = farmsimVersion;
             Properties.Settings.Default.Save();
-            saveGamePath = saveGamePathRoot + Path.DirectorySeparatorChar + farmsimVersion;
+            saveGamePath = saveGamePathRoot;
             GetBackupFiles();
             RefreshLists();
         }
@@ -83,79 +87,51 @@ namespace FarmSimBackupManager
             textBoxDebug.AppendText(msg + "\r\n");
         }
 
-        private void GetSaveGames()
+        private string GetStringFromJObject(JObject jObject, string tokenPath)
+        {
+            JToken jToken = jObject.SelectToken(tokenPath);
+            return jToken.ToString();
+        }
+
+        private void GetSaveGameInfo()
         {
             if(!Directory.Exists(saveGamePath))
             {
                 DebugLog("Save game path not found, check options!");
                 return;
             }
-            mySaveGames = new List<FarmSimSaveGame>();
-            string[] dirs = Directory.GetDirectories(saveGamePath);
-            foreach (string dir in dirs)
+
+            SnowRunnerSaveGame saveGame = new SnowRunnerSaveGame();
+
+            string jsonFile = saveGamePath + Path.DirectorySeparatorChar + "CompleteSave.dat";
+            if(File.Exists(jsonFile))
             {
-                //DebugLog("Examining: " + dir);
-                if (Directory.Exists(dir))
+                using (StreamReader file = File.OpenText(jsonFile))
                 {
-                    string dirName = new DirectoryInfo(dir).Name;
-                    Regex r = new Regex("^savegame[0-9]+$");
-                    Match m = r.Match(dirName);
-                    if (m.Success)
+                    using (JsonTextReader reader = new JsonTextReader(file))
                     {
-                        DebugLog("Found save game directory: " + dirName);
-                        string gameXmlFile = dir + Path.DirectorySeparatorChar + "careerSavegame.xml";
+                        JObject saveGameData = (JObject)JToken.ReadFrom(reader);
 
-                        if (File.Exists(gameXmlFile))
-                        {
-                            DebugLog("Found XML " + gameXmlFile);
-                            FarmSimSaveGame save = new FarmSimSaveGame();
-
-                            XmlDocument gameXml = new XmlDocument();
-                            gameXml.Load(gameXmlFile);
-                            DirectoryInfo di = new DirectoryInfo(dir);
-                            save.directoryName = di.Name;
-                            save.directoryChanged = di.LastWriteTime;
-                            XmlNode node = gameXml.DocumentElement.SelectSingleNode("settings/savegameName");
-                            save.savegameName = node.InnerText;
-                            node = gameXml.DocumentElement.SelectSingleNode("settings/mapTitle");
-                            save.mapTitle = node.InnerText;
-                            node = gameXml.DocumentElement.SelectSingleNode("settings/saveDate");
-                            save.saveDate = node.InnerText;
-                            node = gameXml.DocumentElement.SelectSingleNode("settings/playerName");
-                            save.playerName = node.InnerText;
-                            node = gameXml.DocumentElement.SelectSingleNode("statistics/money");
-                            save.money = Convert.ToInt32(node.InnerText);
-                            DebugLog("adding " + save.directoryName);
-                            mySaveGames.Add(save);
-                        }
+                        labelSaveDate.Text = File.GetCreationTime(jsonFile).ToString("MM/dd/yyyy hh:mm tt");
+                        labelRank.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
+                        labelExperience.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
+                        labelMoney.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
                     }
-                }
-            }
-            mySaveGames = mySaveGames.OrderBy(sel => sel.directoryName, new OrdinalStringComparer()).ToList();
-            treeViewSavegames.BeginUpdate();
-            treeViewSavegames.Nodes.Clear();
-            unselectableSaveNodes.Clear();
-            for (int i = 0; i < mySaveGames.Count; i++)
-            {
-                DebugLog("looking at " + mySaveGames[i].directoryName);
-                TreeNode newParentNode = treeViewSavegames.Nodes.Add(String.Format("{0}: {1} ({2})", mySaveGames[i].directoryName, mySaveGames[i].savegameName, mySaveGames[i].directoryChanged.ToString()));
-                TreeNode newChildNode = newParentNode.Nodes.Add(String.Format("Player: {0}", mySaveGames[i].playerName));
-                unselectableSaveNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Map: {0}", mySaveGames[i].mapTitle));
-                unselectableSaveNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Saved: {0}", mySaveGames[i].saveDate));
-                unselectableSaveNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Money: {0:n0}", mySaveGames[i].money));
-                unselectableSaveNodes.Add(newChildNode);
 
-                DateTime latest = GetLatestZipDate(mySaveGames[i].directoryName);
-                if(latest.CompareTo(mySaveGames[i].directoryChanged) >= 0)
-                {
-                    newParentNode.ForeColor = System.Drawing.Color.Green;
-                    //newParentNode.NodeFont = new System.Drawing.Font(treeViewBackups.Font, System.Drawing.FontStyle.Bold);
                 }
             }
-            treeViewSavegames.EndUpdate();
+
+            DateTime latest = GetLatestZipDate();
+            if (latest.CompareTo(saveGame.saveDate) >= 0)
+            {
+                labelSaveDateLabel.ForeColor = System.Drawing.Color.Green;
+                labelSaveDate.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                labelSaveDateLabel.ForeColor = new System.Drawing.Color();
+                labelSaveDate.ForeColor = new System.Drawing.Color();
+            }
         }
 
         private void GetBackupFiles()
@@ -166,8 +142,8 @@ namespace FarmSimBackupManager
                 return;
             }
             string[] backupFiles = Directory.GetFiles(backupFolder);
-            backupSaveGames = new List<FarmSimSaveGame>();
-            Regex r = new Regex(@"^" + farmsimVersion + "_(savegame[0-9]+)_[0-9]{8}-[0-9]{6}.zip$");
+            backupSaveGames = new List<SnowRunnerSaveGame>();
+            Regex r = new Regex(@"^SnowRunner_[0-9]{8}-[0-9]{6}.zip$");
             Match m;
             foreach (string backupFile in backupFiles)
             {
@@ -183,24 +159,10 @@ namespace FarmSimBackupManager
                             ZipEntry theEntry;
                             while ((theEntry = s.GetNextEntry()) != null)
                             {
-                                if (theEntry.Name == "careerSavegame.xml")
+                                if (theEntry.Name == "CompleteSave.dat")
                                 {
-                                    XmlDocument gameXml = new XmlDocument();
-                                    FarmSimSaveGame save = new FarmSimSaveGame();
-                                    gameXml.Load(s);
+                                    SnowRunnerSaveGame save = new SnowRunnerSaveGame();
 
-                                    save.directoryName = m.Groups[1].Value;
-                                    save.backupName = fileName;
-                                    XmlNode node = gameXml.DocumentElement.SelectSingleNode("settings/savegameName");
-                                    save.savegameName = node.InnerText;
-                                    node = gameXml.DocumentElement.SelectSingleNode("settings/mapTitle");
-                                    save.mapTitle = node.InnerText;
-                                    node = gameXml.DocumentElement.SelectSingleNode("settings/saveDate");
-                                    save.saveDate = node.InnerText;
-                                    node = gameXml.DocumentElement.SelectSingleNode("settings/playerName");
-                                    save.playerName = node.InnerText;
-                                    node = gameXml.DocumentElement.SelectSingleNode("statistics/money");
-                                    save.money = Convert.ToInt32(node.InnerText);
                                     backupSaveGames.Add(save);
                                 }
                             }
@@ -209,20 +171,16 @@ namespace FarmSimBackupManager
                     }
                 }
             }
-            backupSaveGames = backupSaveGames.OrderBy(sel => sel.directoryName, new OrdinalStringComparer()).ToList();
+            backupSaveGames = backupSaveGames.OrderBy(sel => sel.saveDate.ToString(), new OrdinalStringComparer()).ToList();
             treeViewBackups.BeginUpdate();
             treeViewBackups.Nodes.Clear();
             unselectableBackupNodes.Clear();
             for (int i = 0; i < backupSaveGames.Count; i++)
             {
-                TreeNode newParentNode = treeViewBackups.Nodes.Add(backupSaveGames[i].backupName);
-                TreeNode newChildNode = newParentNode.Nodes.Add(String.Format("Player: {0}", backupSaveGames[i].playerName));
+                TreeNode newParentNode = treeViewBackups.Nodes.Add(backupSaveGames[i].saveDate.ToString());
+                TreeNode newChildNode = newParentNode.Nodes.Add(String.Format("Rank: {0}", backupSaveGames[i].rank));
                 unselectableBackupNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Name: {0}", backupSaveGames[i].savegameName));
-                unselectableBackupNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Map: {0}", backupSaveGames[i].mapTitle));
-                unselectableBackupNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Saved: {0}", backupSaveGames[i].saveDate));
+                newChildNode = newParentNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience));
                 unselectableBackupNodes.Add(newChildNode);
                 newChildNode = newParentNode.Nodes.Add(String.Format("Money: {0:n0}", backupSaveGames[i].money));
                 unselectableBackupNodes.Add(newChildNode);
@@ -230,36 +188,21 @@ namespace FarmSimBackupManager
             treeViewBackups.EndUpdate();
         }
 
-        private DateTime GetSaveGameDate(string save)
-        {
-            for (int i = 0; i < mySaveGames.Count; i++)
-            {
-                if (mySaveGames[i].directoryName == save)
-                {
-                    return mySaveGames[i].directoryChanged;
-                }
-            }
-            return DateTime.MinValue;
-        }
-
-        private DateTime GetLatestZipDate(string save)
+        private DateTime GetLatestZipDate()
         {
             DateTime latest = DateTime.MinValue;
             DateTime lastDate = DateTime.MinValue;
             for (int i = 0; i < backupSaveGames.Count; i++)
             {
-                Regex r = new Regex(@"^" + farmsimVersion + "_(savegame[0-9]+)_([0-9]{8}-[0-9]{6}).zip$");
-                Match m = r.Match(backupSaveGames[i].backupName);
+                Regex r = new Regex(@"^SnowRunner_([0-9]{8}-[0-9]{6}).zip$");
+                Match m = r.Match("");
                 if (m.Success)
                 {
-                    if (m.Groups[1].Value == save)
+                    DateTime zipDate = new DateTime();
+                    DateTime.TryParseExact(m.Groups[2].Value, "yyyyMMdd-HHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out zipDate);
+                    if (zipDate != DateTime.MinValue && zipDate.CompareTo(lastDate) == 1)
                     {
-                        DateTime zipDate = new DateTime();
-                        DateTime.TryParseExact(m.Groups[2].Value, "yyyyMMdd-HHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out zipDate);
-                        if (zipDate != DateTime.MinValue && zipDate.CompareTo(lastDate) == 1)
-                        {
-                            latest = zipDate;
-                        }
+                        latest = zipDate;
                     }
                 }
             }
@@ -296,21 +239,17 @@ namespace FarmSimBackupManager
                 DebugLog("Backup folder not found, check options!");
                 return;
             }
-            if (treeViewSavegames.SelectedNode != null)
-            {
-
-                string dirText = treeViewSavegames.SelectedNode.Text;
-                int i = dirText.IndexOf(':');
-                string dirName = dirText.Substring(0, i);
-                showUI(false);
-                SaveGame(dirName);
-                showUI(true);
-                RefreshLists();
-            }
-            else
-            {
-                DebugLog("No save game selected to backup!");
-            }
+            
+            /*
+             * TODO
+            string dirText = treeViewSavegames.SelectedNode.Text;
+            int i = dirText.IndexOf(':');
+            string dirName = dirText.Substring(0, i);
+            showUI(false);
+            SaveGame(dirName);
+            showUI(true);
+            RefreshLists();
+            */
         }
 
         private void buttonRestore_Click(object sender, EventArgs e)
@@ -341,7 +280,7 @@ namespace FarmSimBackupManager
             if (Directory.Exists(mySaveGameDir))
             {
                 string dateString = DateTime.Now.ToString(timestampString);
-                string zipFilePath = backupFolder + Path.DirectorySeparatorChar + farmsimVersion + "_" + dirName + "_" + dateString + ".zip";
+                string zipFilePath = backupFolder + Path.DirectorySeparatorChar + "SnowRunner_" + dateString + ".zip";
                 DebugLog("zipping to " + zipFilePath);
                 ZipFolder(mySaveGameDir, zipFilePath);
                 GetBackupFiles();
@@ -440,7 +379,7 @@ namespace FarmSimBackupManager
         {
             DebugLog("Restoring game " + backupName);
             string dirNameFull = new FileInfo(backupName).Name;
-            Regex r = new Regex(@"^" + farmsimVersion + "_(savegame[0-9]+)_[0-9]{8}-[0-9]{6}.zip$");
+            Regex r = new Regex(@"^SnowRunner_[0-9]{8}-[0-9]{6}.zip$");
             Match m = r.Match(dirNameFull);
             DebugLog("dirNameFull " + dirNameFull);
             if (m.Success)
@@ -477,7 +416,7 @@ namespace FarmSimBackupManager
                     string zipFilePath = backupFolder + Path.DirectorySeparatorChar + backupName;
                     DebugLog("Unzipping from " + zipFilePath);
                     UnzipFile(zipFilePath, mySaveGameDir);
-                    GetSaveGames();
+                    GetSaveGameInfo();
                 }
                 else
                 {
@@ -528,7 +467,6 @@ namespace FarmSimBackupManager
 
         private void showUI(bool show)
         {
-            treeViewSavegames.Enabled = show;
             treeViewBackups.Enabled = show;
             buttonBackup.Enabled = show;
             buttonRestore.Enabled = show;
@@ -567,7 +505,7 @@ namespace FarmSimBackupManager
         {
             showUI(false);
             GetBackupFiles();
-            GetSaveGames();
+            GetSaveGameInfo();
             showUI(true);
         }
     }

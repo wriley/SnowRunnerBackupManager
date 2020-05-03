@@ -1,4 +1,4 @@
-﻿namespace FarmSimBackupManager
+﻿namespace SnowRunnerBackupManager
 {
     partial class frmMain
     {
@@ -36,20 +36,29 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.treeViewSavegames = new System.Windows.Forms.TreeView();
             this.treeViewBackups = new System.Windows.Forms.TreeView();
-            this.labelSaveGames = new System.Windows.Forms.Label();
             this.labelBackups = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelSaveGames = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonBackup = new System.Windows.Forms.Button();
             this.buttonRestore = new System.Windows.Forms.Button();
             this.buttonRemoveBackup = new System.Windows.Forms.Button();
             this.buttonOpenBackupLocation = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.labelExperience = new System.Windows.Forms.Label();
+            this.labelMoney = new System.Windows.Forms.Label();
+            this.labelRank = new System.Windows.Forms.Label();
+            this.labelSaveDate = new System.Windows.Forms.Label();
+            this.labelExperienceLabel = new System.Windows.Forms.Label();
+            this.labelMoneyLabel = new System.Windows.Forms.Label();
+            this.labelRankLabel = new System.Windows.Forms.Label();
+            this.labelSaveDateLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxDebug
@@ -111,14 +120,6 @@
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // treeViewSavegames
-            // 
-            this.treeViewSavegames.Location = new System.Drawing.Point(3, 32);
-            this.treeViewSavegames.Name = "treeViewSavegames";
-            this.treeViewSavegames.Size = new System.Drawing.Size(399, 355);
-            this.treeViewSavegames.TabIndex = 0;
-            this.treeViewSavegames.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewSavegames_BeforeSelect);
-            // 
             // treeViewBackups
             // 
             this.treeViewBackups.Location = new System.Drawing.Point(498, 32);
@@ -126,16 +127,6 @@
             this.treeViewBackups.Size = new System.Drawing.Size(399, 355);
             this.treeViewBackups.TabIndex = 0;
             this.treeViewBackups.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewBackups_BeforeSelect);
-            // 
-            // labelSaveGames
-            // 
-            this.labelSaveGames.AutoSize = true;
-            this.labelSaveGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSaveGames.Location = new System.Drawing.Point(3, 0);
-            this.labelSaveGames.Name = "labelSaveGames";
-            this.labelSaveGames.Size = new System.Drawing.Size(78, 13);
-            this.labelSaveGames.TabIndex = 1;
-            this.labelSaveGames.Text = "Save Games";
             // 
             // labelBackups
             // 
@@ -154,11 +145,11 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel1.Controls.Add(this.labelSaveGames, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.treeViewSavegames, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelBackups, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.treeViewBackups, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonRefresh, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 27);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -166,6 +157,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.30769F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(900, 390);
             this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // labelSaveGames
+            // 
+            this.labelSaveGames.AutoSize = true;
+            this.labelSaveGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSaveGames.Location = new System.Drawing.Point(3, 0);
+            this.labelSaveGames.Name = "labelSaveGames";
+            this.labelSaveGames.Size = new System.Drawing.Size(117, 13);
+            this.labelSaveGames.TabIndex = 1;
+            this.labelSaveGames.Text = "Current Save Game";
             // 
             // flowLayoutPanel1
             // 
@@ -229,6 +230,93 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.labelExperience);
+            this.panel1.Controls.Add(this.labelMoney);
+            this.panel1.Controls.Add(this.labelRank);
+            this.panel1.Controls.Add(this.labelSaveDate);
+            this.panel1.Controls.Add(this.labelExperienceLabel);
+            this.panel1.Controls.Add(this.labelMoneyLabel);
+            this.panel1.Controls.Add(this.labelRankLabel);
+            this.panel1.Controls.Add(this.labelSaveDateLabel);
+            this.panel1.Location = new System.Drawing.Point(3, 32);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(399, 355);
+            this.panel1.TabIndex = 5;
+            // 
+            // labelExperience
+            // 
+            this.labelExperience.Location = new System.Drawing.Point(79, 46);
+            this.labelExperience.Name = "labelExperience";
+            this.labelExperience.Size = new System.Drawing.Size(140, 15);
+            this.labelExperience.TabIndex = 7;
+            this.labelExperience.Text = "----";
+            this.labelExperience.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelMoney
+            // 
+            this.labelMoney.Location = new System.Drawing.Point(79, 32);
+            this.labelMoney.Name = "labelMoney";
+            this.labelMoney.Size = new System.Drawing.Size(140, 15);
+            this.labelMoney.TabIndex = 6;
+            this.labelMoney.Text = "----";
+            this.labelMoney.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelRank
+            // 
+            this.labelRank.Location = new System.Drawing.Point(79, 18);
+            this.labelRank.Name = "labelRank";
+            this.labelRank.Size = new System.Drawing.Size(140, 15);
+            this.labelRank.TabIndex = 5;
+            this.labelRank.Text = "----";
+            this.labelRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelSaveDate
+            // 
+            this.labelSaveDate.Location = new System.Drawing.Point(79, 3);
+            this.labelSaveDate.Name = "labelSaveDate";
+            this.labelSaveDate.Size = new System.Drawing.Size(140, 15);
+            this.labelSaveDate.TabIndex = 4;
+            this.labelSaveDate.Text = "----";
+            this.labelSaveDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelExperienceLabel
+            // 
+            this.labelExperienceLabel.Location = new System.Drawing.Point(3, 48);
+            this.labelExperienceLabel.Name = "labelExperienceLabel";
+            this.labelExperienceLabel.Size = new System.Drawing.Size(70, 13);
+            this.labelExperienceLabel.TabIndex = 3;
+            this.labelExperienceLabel.Text = "Experience:";
+            this.labelExperienceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelMoneyLabel
+            // 
+            this.labelMoneyLabel.Location = new System.Drawing.Point(3, 33);
+            this.labelMoneyLabel.Name = "labelMoneyLabel";
+            this.labelMoneyLabel.Size = new System.Drawing.Size(70, 15);
+            this.labelMoneyLabel.TabIndex = 2;
+            this.labelMoneyLabel.Text = "Money:";
+            this.labelMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelRankLabel
+            // 
+            this.labelRankLabel.Location = new System.Drawing.Point(3, 18);
+            this.labelRankLabel.Name = "labelRankLabel";
+            this.labelRankLabel.Size = new System.Drawing.Size(70, 15);
+            this.labelRankLabel.TabIndex = 1;
+            this.labelRankLabel.Text = "Rank:";
+            this.labelRankLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSaveDateLabel
+            // 
+            this.labelSaveDateLabel.Location = new System.Drawing.Point(3, 3);
+            this.labelSaveDateLabel.Name = "labelSaveDateLabel";
+            this.labelSaveDateLabel.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveDateLabel.TabIndex = 0;
+            this.labelSaveDateLabel.Text = "Last Played:";
+            this.labelSaveDateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,7 +328,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
-            this.Text = "FarmSimBackupManager";
+            this.Text = "SnowRunnerBackupManager";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.menuStrip1.ResumeLayout(false);
@@ -248,6 +336,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,9 +350,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.TreeView treeViewSavegames;
         private System.Windows.Forms.TreeView treeViewBackups;
-        private System.Windows.Forms.Label labelSaveGames;
         private System.Windows.Forms.Label labelBackups;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
@@ -273,6 +360,16 @@
         private System.Windows.Forms.Button buttonRemoveBackup;
         private System.Windows.Forms.Button buttonOpenBackupLocation;
         private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Label labelSaveGames;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelExperience;
+        private System.Windows.Forms.Label labelMoney;
+        private System.Windows.Forms.Label labelRank;
+        private System.Windows.Forms.Label labelSaveDate;
+        private System.Windows.Forms.Label labelExperienceLabel;
+        private System.Windows.Forms.Label labelMoneyLabel;
+        private System.Windows.Forms.Label labelRankLabel;
+        private System.Windows.Forms.Label labelSaveDateLabel;
     }
 }
 

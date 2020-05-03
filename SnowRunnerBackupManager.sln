@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimBackupManager", "FarmSimBackupManager\FarmSimBackupManager.csproj", "{AD3B9D90-E2C5-4CB7-A551-F8EBFA662383}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowRunnerBackupManager", "FarmSimBackupManager\SnowRunnerBackupManager.csproj", "{AD3B9D90-E2C5-4CB7-A551-F8EBFA662383}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F692916B-2F06-42C2-A20A-41255EE6771B}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿namespace FarmSimBackupManager
+﻿namespace SnowRunnerBackupManager
 {
     partial class frmAbout
     {
