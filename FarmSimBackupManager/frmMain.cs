@@ -27,6 +27,7 @@ namespace SnowRunnerBackupManager
 
         private struct SnowRunnerSaveGame
         {
+            public string backupName;
             public DateTime saveDate;
             public string rank;
             public string experience;
@@ -59,7 +60,7 @@ namespace SnowRunnerBackupManager
 
             if (accountId == "NONE")
             {
-                DebugLog("Error: accountId not found in registry");
+                DebugLog("Error: accountId not found in registry, is SnowRunner installed?");
             }
             else
             {
@@ -112,7 +113,7 @@ namespace SnowRunnerBackupManager
                     {
                         JObject saveGameData = (JObject)JToken.ReadFrom(reader);
 
-                        labelSaveDate.Text = File.GetCreationTime(jsonFile).ToString("MM/dd/yyyy hh:mm tt");
+                        labelSaveDate.Text = File.GetLastWriteTime(jsonFile).ToString("MM/dd/yyyy hh:mm tt");
                         labelRank.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
                         labelExperience.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
                         labelMoney.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
@@ -161,9 +162,18 @@ namespace SnowRunnerBackupManager
                             {
                                 if (theEntry.Name == "CompleteSave.dat")
                                 {
-                                    SnowRunnerSaveGame save = new SnowRunnerSaveGame();
+                                    StreamReader sReader = new StreamReader(s);
+                                    JsonTextReader reader = new JsonTextReader(sReader);
+                                    JObject saveGameData = (JObject)JToken.ReadFrom(reader);
 
+                                    SnowRunnerSaveGame save = new SnowRunnerSaveGame();
+                                    save.backupName = fileName;
+                                    save.saveDate = File.GetCreationTime(backupFile);
+                                    save.rank = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
+                                    save.experience = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
+                                    save.money = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
                                     backupSaveGames.Add(save);
+                                   
                                 }
                             }
                             s.Close();
@@ -177,12 +187,13 @@ namespace SnowRunnerBackupManager
             unselectableBackupNodes.Clear();
             for (int i = 0; i < backupSaveGames.Count; i++)
             {
-                TreeNode newParentNode = treeViewBackups.Nodes.Add(backupSaveGames[i].saveDate.ToString());
+                TreeNode newParentNode = treeViewBackups.Nodes.Add(String.Format("{0}", backupSaveGames[i].backupName));
+
                 TreeNode newChildNode = newParentNode.Nodes.Add(String.Format("Rank: {0}", backupSaveGames[i].rank));
                 unselectableBackupNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience));
-                unselectableBackupNodes.Add(newChildNode);
                 newChildNode = newParentNode.Nodes.Add(String.Format("Money: {0:n0}", backupSaveGames[i].money));
+                unselectableBackupNodes.Add(newChildNode);
+                newChildNode = newParentNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience));
                 unselectableBackupNodes.Add(newChildNode);
             }
             treeViewBackups.EndUpdate();
@@ -240,16 +251,10 @@ namespace SnowRunnerBackupManager
                 return;
             }
             
-            /*
-             * TODO
-            string dirText = treeViewSavegames.SelectedNode.Text;
-            int i = dirText.IndexOf(':');
-            string dirName = dirText.Substring(0, i);
             showUI(false);
-            SaveGame(dirName);
+            SaveGame();
             showUI(true);
             RefreshLists();
-            */
         }
 
         private void buttonRestore_Click(object sender, EventArgs e)
@@ -273,22 +278,21 @@ namespace SnowRunnerBackupManager
             }
         }
 
-        private void SaveGame(string dirName)
+        private void SaveGame()
         {
-            DebugLog("Saving game " + dirName);
-            string mySaveGameDir = saveGamePath + Path.DirectorySeparatorChar + dirName;
-            if (Directory.Exists(mySaveGameDir))
+            DebugLog("Saving game");
+            if (Directory.Exists(saveGamePath))
             {
                 string dateString = DateTime.Now.ToString(timestampString);
                 string zipFilePath = backupFolder + Path.DirectorySeparatorChar + "SnowRunner_" + dateString + ".zip";
                 DebugLog("zipping to " + zipFilePath);
-                ZipFolder(mySaveGameDir, zipFilePath);
+                ZipFolder(saveGamePath, zipFilePath);
                 GetBackupFiles();
                 DebugLog("SaveGame complete");
             }
             else
             {
-                DebugLog("Error: Directory not found " + mySaveGameDir);
+                DebugLog("Error: Directory not found " + saveGamePath);
             }
         }
 
@@ -384,44 +388,10 @@ namespace SnowRunnerBackupManager
             DebugLog("dirNameFull " + dirNameFull);
             if (m.Success)
             {
-                if (m.Groups[1].Value != null)
-                {
-                    string dirName = m.Groups[1].Value;
-                    string mySaveGameDir = saveGamePath + Path.DirectorySeparatorChar + dirName;
-                    if (Directory.Exists(mySaveGameDir))
-                    {
-                        DebugLog(dirName + " already exists!");
-                        DialogResult result = MessageBox.Show(dirName + " already exists, overwrite?", "Overwrite Save?", MessageBoxButtons.YesNo);
-                        if (result == DialogResult.Yes)
-                        {
-                            // file system calls can be delayed so wait for folder to be deleted
-                            var fi = new System.IO.FileInfo(mySaveGameDir);
-                            if (fi.Exists)
-                            {
-                                Directory.Delete(mySaveGameDir, true);
-                                fi.Refresh();
-                                while(fi.Exists)
-                                {
-                                    System.Threading.Thread.Sleep(100);
-                                    fi.Refresh();
-                                }
-                            }
-                        }
-                        if (result == DialogResult.No)
-                        {
-                            return;
-                        }
-                    }
-                    Directory.CreateDirectory(mySaveGameDir);
-                    string zipFilePath = backupFolder + Path.DirectorySeparatorChar + backupName;
-                    DebugLog("Unzipping from " + zipFilePath);
-                    UnzipFile(zipFilePath, mySaveGameDir);
-                    GetSaveGameInfo();
-                }
-                else
-                {
-                    DebugLog("Unable to determine save game folder name from " + dirNameFull);
-                }
+                string zipFilePath = backupFolder + Path.DirectorySeparatorChar + backupName;
+                DebugLog("Unzipping from " + zipFilePath);
+                UnzipFile(zipFilePath, saveGamePath);
+                GetSaveGameInfo();
                 DebugLog("RestoreGame complete");
             }
         }

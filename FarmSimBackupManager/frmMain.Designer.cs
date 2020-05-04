@@ -314,7 +314,7 @@
             this.labelSaveDateLabel.Name = "labelSaveDateLabel";
             this.labelSaveDateLabel.Size = new System.Drawing.Size(70, 15);
             this.labelSaveDateLabel.TabIndex = 0;
-            this.labelSaveDateLabel.Text = "Last Played:";
+            this.labelSaveDateLabel.Text = "Last Saved:";
             this.labelSaveDateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmMain
