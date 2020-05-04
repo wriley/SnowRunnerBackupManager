@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm -f download/FarmSimBackupManager.zip
-zip -j download/FarmSimBackupManager.zip FarmSimBackupManager/bin/Release/FarmSimBackupManager.exe FarmSimBackupManager/bin/Release/ICSharpCode.SharpZipLib.dll
+rm -f download/SnowRunnerBackupManager.zip
+zip -j download/SnowRunnerBackupManager.zip SnowRunnerBackupManager/bin/Release/SnowRunnerBackupManager.exe SnowRunnerBackupManager/bin/Release/ICSharpCode.SharpZipLib.dll SnowRunnerBackupManager/bin/Release/Newtonsoft.Json.dll
