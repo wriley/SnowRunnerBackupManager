@@ -105,6 +105,7 @@ namespace SnowRunnerBackupManager
             SnowRunnerSaveGame saveGame = new SnowRunnerSaveGame();
 
             string jsonFile = saveGamePath + Path.DirectorySeparatorChar + "CompleteSave.dat";
+            saveGame.saveDate = File.GetLastWriteTime(jsonFile);
             if(File.Exists(jsonFile))
             {
                 using (StreamReader file = File.OpenText(jsonFile))
@@ -123,6 +124,8 @@ namespace SnowRunnerBackupManager
             }
 
             DateTime latest = GetLatestZipDate();
+            DebugLog("latest: " + latest.ToString());
+            DebugLog("saveDate: " + saveGame.saveDate.ToString());
             if (latest.CompareTo(saveGame.saveDate) >= 0)
             {
                 labelSaveDateLabel.ForeColor = System.Drawing.Color.Green;
@@ -206,11 +209,11 @@ namespace SnowRunnerBackupManager
             for (int i = 0; i < backupSaveGames.Count; i++)
             {
                 Regex r = new Regex(@"^SnowRunner_([0-9]{8}-[0-9]{6}).zip$");
-                Match m = r.Match("");
+                Match m = r.Match(backupSaveGames[i].backupName);
                 if (m.Success)
                 {
                     DateTime zipDate = new DateTime();
-                    DateTime.TryParseExact(m.Groups[2].Value, "yyyyMMdd-HHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out zipDate);
+                    DateTime.TryParseExact(m.Groups[1].Value, "yyyyMMdd-HHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out zipDate);
                     if (zipDate != DateTime.MinValue && zipDate.CompareTo(lastDate) == 1)
                     {
                         latest = zipDate;
