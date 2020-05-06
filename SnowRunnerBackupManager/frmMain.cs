@@ -124,8 +124,8 @@ namespace SnowRunnerBackupManager
             }
 
             DateTime latest = GetLatestZipDate();
-            DebugLog("latest: " + latest.ToString());
-            DebugLog("saveDate: " + saveGame.saveDate.ToString());
+            //DebugLog("latest: " + latest.ToString());
+            //DebugLog("saveDate: " + saveGame.saveDate.ToString());
             if (latest.CompareTo(saveGame.saveDate) >= 0)
             {
                 labelSaveDateLabel.ForeColor = System.Drawing.Color.Green;
