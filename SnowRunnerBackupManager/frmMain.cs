@@ -184,7 +184,7 @@ namespace SnowRunnerBackupManager
                     }
                 }
             }
-            backupSaveGames = backupSaveGames.OrderBy(sel => sel.saveDate.ToString(), new OrdinalStringComparer()).ToList();
+            backupSaveGames = backupSaveGames.OrderBy(sel => sel.backupName, new OrdinalStringComparer()).ToList();
             treeViewBackups.BeginUpdate();
             treeViewBackups.Nodes.Clear();
             unselectableBackupNodes.Clear();
