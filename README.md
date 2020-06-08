@@ -5,7 +5,7 @@
 A simple backup/restore tool for SnowRunner
 
 How to install:
-* Download ![SnowRunnerBackupManager.zip](https://github.com/wriley/SnowRunnerBackupManager/raw/master/download/SnowRunnerBackupManager.zip) and extract to folder of your choice
+* Download ![SnowRunnerBackupManager.zip](https://github.com/wriley/SnowRunnerBackupManager/releases/latest) and extract to folder of your choice
 * Double click SnowRunnerBackupManager.exe
 * Set a backup folder location to store created backup files
 
