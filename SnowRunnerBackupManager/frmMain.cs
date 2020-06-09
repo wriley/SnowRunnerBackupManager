@@ -28,10 +28,26 @@ namespace SnowRunnerBackupManager
         private struct SnowRunnerSaveGame
         {
             public string backupName;
-            public DateTime saveDate;
-            public string rank;
-            public string experience;
-            public string money;
+
+            public DateTime saveDate1;
+            public string rank1;
+            public string experience1;
+            public string money1;
+
+            public DateTime saveDate2;
+            public string rank2;
+            public string experience2;
+            public string money2;
+
+            public DateTime saveDate3;
+            public string rank3;
+            public string experience3;
+            public string money3;
+
+            public DateTime saveDate4;
+            public string rank4;
+            public string experience4;
+            public string money4;
         }
 
         public frmMain()
@@ -90,7 +106,9 @@ namespace SnowRunnerBackupManager
 
         private string GetStringFromJObject(JObject jObject, string tokenPath)
         {
+            if (jObject == null) { return string.Empty; }
             JToken jToken = jObject.SelectToken(tokenPath);
+            if(jToken == null) { return string.Empty; }
             return jToken.ToString();
         }
 
@@ -104,8 +122,9 @@ namespace SnowRunnerBackupManager
 
             SnowRunnerSaveGame saveGame = new SnowRunnerSaveGame();
 
+            // save slot 1
             string jsonFile = saveGamePath + Path.DirectorySeparatorChar + "CompleteSave.dat";
-            saveGame.saveDate = File.GetLastWriteTime(jsonFile);
+            saveGame.saveDate1 = File.GetLastWriteTime(jsonFile);
             if(File.Exists(jsonFile))
             {
                 using (StreamReader file = File.OpenText(jsonFile))
@@ -114,10 +133,70 @@ namespace SnowRunnerBackupManager
                     {
                         JObject saveGameData = (JObject)JToken.ReadFrom(reader);
 
-                        labelSaveDate.Text = saveGame.saveDate.ToString("MM/dd/yyyy hh:mm tt");
-                        labelRank.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
-                        labelExperience.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
-                        labelMoney.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
+                        labelSaveDate1.Text = saveGame.saveDate1.ToString("MM/dd/yyyy hh:mm tt");
+                        labelRank1.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
+                        labelExperience1.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
+                        labelMoney1.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
+                    }
+
+                }
+            }
+
+            // save slot 2
+            jsonFile = saveGamePath + Path.DirectorySeparatorChar + "CompleteSave1.dat";
+            saveGame.saveDate2 = File.GetLastWriteTime(jsonFile);
+            if (File.Exists(jsonFile))
+            {
+                using (StreamReader file = File.OpenText(jsonFile))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        JObject saveGameData = (JObject)JToken.ReadFrom(reader);
+
+                        labelSaveDate2.Text = saveGame.saveDate2.ToString("MM/dd/yyyy hh:mm tt");
+                        labelRank2.Text = GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.rank");
+                        labelExperience2.Text = GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.experience");
+                        labelMoney2.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.money")));
+                    }
+
+                }
+            }
+
+            // save slot 3
+            jsonFile = saveGamePath + Path.DirectorySeparatorChar + "CompleteSave2.dat";
+            saveGame.saveDate3 = File.GetLastWriteTime(jsonFile);
+            if (File.Exists(jsonFile))
+            {
+                using (StreamReader file = File.OpenText(jsonFile))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        JObject saveGameData = (JObject)JToken.ReadFrom(reader);
+
+                        labelSaveDate3.Text = saveGame.saveDate3.ToString("MM/dd/yyyy hh:mm tt");
+                        labelRank3.Text = GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.rank");
+                        labelExperience3.Text = GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.experience");
+                        labelMoney3.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.money")));
+                    }
+
+                }
+            }
+
+            // save slot 4
+            jsonFile = saveGamePath + Path.DirectorySeparatorChar + "CompleteSave3.dat";
+            saveGame.saveDate4 = File.GetLastWriteTime(jsonFile);
+            if (File.Exists(jsonFile))
+            {
+                using (StreamReader file = File.OpenText(jsonFile))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        JObject saveGameData = (JObject)JToken.ReadFrom(reader);
+
+                        labelSaveDate4.Text = saveGame.saveDate4.ToString("MM/dd/yyyy hh:mm tt");
+                        labelRank4.Text = GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.rank");
+                        labelExperience4.Text = GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.experience");
+                        labelMoney4.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.money")));
                     }
 
                 }
@@ -126,15 +205,15 @@ namespace SnowRunnerBackupManager
             DateTime latest = GetLatestZipDate();
             //DebugLog("latest: " + latest.ToString());
             //DebugLog("saveDate: " + saveGame.saveDate.ToString());
-            if (latest.CompareTo(saveGame.saveDate) >= 0)
+            if (latest.CompareTo(saveGame.saveDate1) >= 0)
             {
-                labelSaveDateLabel.ForeColor = System.Drawing.Color.Green;
-                labelSaveDate.ForeColor = System.Drawing.Color.Green;
+                labelSaveDateLabel1.ForeColor = System.Drawing.Color.Green;
+                labelSaveDate1.ForeColor = System.Drawing.Color.Green;
             }
             else
             {
-                labelSaveDateLabel.ForeColor = new System.Drawing.Color();
-                labelSaveDate.ForeColor = new System.Drawing.Color();
+                labelSaveDateLabel1.ForeColor = new System.Drawing.Color();
+                labelSaveDate1.ForeColor = new System.Drawing.Color();
             }
         }
 
@@ -161,6 +240,7 @@ namespace SnowRunnerBackupManager
                         using (ZipInputStream s = new ZipInputStream(File.OpenRead(backupFile)))
                         {
                             ZipEntry theEntry;
+                            SnowRunnerSaveGame save = new SnowRunnerSaveGame();
                             while ((theEntry = s.GetNextEntry()) != null)
                             {
                                 if (theEntry.Name == "CompleteSave.dat")
@@ -169,14 +249,58 @@ namespace SnowRunnerBackupManager
                                     JsonTextReader reader = new JsonTextReader(sReader);
                                     JObject saveGameData = (JObject)JToken.ReadFrom(reader);
 
-                                    SnowRunnerSaveGame save = new SnowRunnerSaveGame();
                                     save.backupName = fileName;
-                                    save.saveDate = File.GetCreationTime(backupFile);
-                                    save.rank = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
-                                    save.experience = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
-                                    save.money = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
+                                    save.saveDate1 = File.GetCreationTime(backupFile);
+                                    save.rank1 = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
+                                    save.experience1 = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
+                                    save.money1 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
                                     backupSaveGames.Add(save);
                                    
+                                }
+
+                                if (theEntry.Name == "CompleteSave1.dat")
+                                {
+                                    StreamReader sReader = new StreamReader(s);
+                                    JsonTextReader reader = new JsonTextReader(sReader);
+                                    JObject saveGameData = (JObject)JToken.ReadFrom(reader);
+
+                                    save.backupName = fileName;
+                                    save.saveDate2 = File.GetCreationTime(backupFile);
+                                    save.rank2 = GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.rank");
+                                    save.experience2 = GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.experience");
+                                    save.money2 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.money")));
+                                    backupSaveGames.Add(save);
+
+                                }
+
+                                if (theEntry.Name == "CompleteSave2.dat")
+                                {
+                                    StreamReader sReader = new StreamReader(s);
+                                    JsonTextReader reader = new JsonTextReader(sReader);
+                                    JObject saveGameData = (JObject)JToken.ReadFrom(reader);
+
+                                    save.backupName = fileName;
+                                    save.saveDate3 = File.GetCreationTime(backupFile);
+                                    save.rank3 = GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.rank");
+                                    save.experience3 = GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.experience");
+                                    save.money3 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.money")));
+                                    backupSaveGames.Add(save);
+
+                                }
+
+                                if (theEntry.Name == "CompleteSave3.dat")
+                                {
+                                    StreamReader sReader = new StreamReader(s);
+                                    JsonTextReader reader = new JsonTextReader(sReader);
+                                    JObject saveGameData = (JObject)JToken.ReadFrom(reader);
+
+                                    save.backupName = fileName;
+                                    save.saveDate4 = File.GetCreationTime(backupFile);
+                                    save.rank4 = GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.rank");
+                                    save.experience4 = GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.experience");
+                                    save.money4 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.money")));
+                                    backupSaveGames.Add(save);
+
                                 }
                             }
                             s.Close();
@@ -192,12 +316,49 @@ namespace SnowRunnerBackupManager
             {
                 TreeNode newParentNode = treeViewBackups.Nodes.Add(String.Format("{0}", backupSaveGames[i].backupName));
 
-                TreeNode newChildNode = newParentNode.Nodes.Add(String.Format("Rank: {0}", backupSaveGames[i].rank));
-                unselectableBackupNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Money: {0:n0}", backupSaveGames[i].money));
-                unselectableBackupNodes.Add(newChildNode);
-                newChildNode = newParentNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience));
-                unselectableBackupNodes.Add(newChildNode);
+                if (backupSaveGames[i].rank1 != null)
+                {
+                    TreeNode newSlotNode = newParentNode.Nodes.Add("Save Slot 1");
+                    TreeNode newChildNode = newSlotNode.Nodes.Add(String.Format("Rank: {0}", backupSaveGames[i].rank1));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Money: {0:n0}", backupSaveGames[i].money1));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience1));
+                    unselectableBackupNodes.Add(newSlotNode);
+                }
+
+                if (backupSaveGames[i].rank2 != null)
+                {
+                    TreeNode newSlotNode = newParentNode.Nodes.Add("Save Slot 2");
+                    TreeNode newChildNode = newSlotNode.Nodes.Add(String.Format("Rank: {0}", backupSaveGames[i].rank2));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Money: {0:n0}", backupSaveGames[i].money2));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience2));
+                    unselectableBackupNodes.Add(newSlotNode);
+                }
+
+                if (backupSaveGames[i].rank3 != null)
+                {
+                    TreeNode newSlotNode = newParentNode.Nodes.Add("Save Slot 3");
+                    TreeNode newChildNode = newSlotNode.Nodes.Add(String.Format("Rank: {0}", backupSaveGames[i].rank3));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Money: {0:n0}", backupSaveGames[i].money3));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience3));
+                    unselectableBackupNodes.Add(newSlotNode);
+                }
+
+                if (backupSaveGames[i].rank4 != null)
+                {
+                    TreeNode newSlotNode = newParentNode.Nodes.Add("Save Slot 4");
+                    TreeNode newChildNode = newSlotNode.Nodes.Add(String.Format("Rank: {0}", backupSaveGames[i].rank4));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Money: {0:n0}", backupSaveGames[i].money4));
+                    unselectableBackupNodes.Add(newChildNode);
+                    newChildNode = newSlotNode.Nodes.Add(String.Format("Experience: {0:n0}", backupSaveGames[i].experience4));
+                    unselectableBackupNodes.Add(newSlotNode);
+                }
             }
             treeViewBackups.EndUpdate();
         }

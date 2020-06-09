@@ -47,14 +47,42 @@
             this.buttonOpenBackupLocation = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelExperience = new System.Windows.Forms.Label();
-            this.labelMoney = new System.Windows.Forms.Label();
-            this.labelRank = new System.Windows.Forms.Label();
-            this.labelSaveDate = new System.Windows.Forms.Label();
-            this.labelExperienceLabel = new System.Windows.Forms.Label();
-            this.labelMoneyLabel = new System.Windows.Forms.Label();
-            this.labelRankLabel = new System.Windows.Forms.Label();
-            this.labelSaveDateLabel = new System.Windows.Forms.Label();
+            this.labelExperience1 = new System.Windows.Forms.Label();
+            this.labelMoney1 = new System.Windows.Forms.Label();
+            this.labelRank1 = new System.Windows.Forms.Label();
+            this.labelSaveDate1 = new System.Windows.Forms.Label();
+            this.labelExperienceLabel1 = new System.Windows.Forms.Label();
+            this.labelMoneyLabel1 = new System.Windows.Forms.Label();
+            this.labelRankLabel1 = new System.Windows.Forms.Label();
+            this.labelSaveDateLabel1 = new System.Windows.Forms.Label();
+            this.labelSaveSlot1 = new System.Windows.Forms.Label();
+            this.labelSaveSlot3 = new System.Windows.Forms.Label();
+            this.labelExperience3 = new System.Windows.Forms.Label();
+            this.labelMoney3 = new System.Windows.Forms.Label();
+            this.labelRank3 = new System.Windows.Forms.Label();
+            this.labelSaveDate3 = new System.Windows.Forms.Label();
+            this.labelExperienceLabel3 = new System.Windows.Forms.Label();
+            this.labelMoneyLabel3 = new System.Windows.Forms.Label();
+            this.labelRankLabel3 = new System.Windows.Forms.Label();
+            this.labelSaveDateLabel3 = new System.Windows.Forms.Label();
+            this.labelSaveSlot4 = new System.Windows.Forms.Label();
+            this.labelExperience4 = new System.Windows.Forms.Label();
+            this.labelMoney4 = new System.Windows.Forms.Label();
+            this.labelRank4 = new System.Windows.Forms.Label();
+            this.labelSaveDate4 = new System.Windows.Forms.Label();
+            this.labelExperienceLabel4 = new System.Windows.Forms.Label();
+            this.labelMoneyLabel4 = new System.Windows.Forms.Label();
+            this.labelRankLabel4 = new System.Windows.Forms.Label();
+            this.labellabelSaveDateLabel4 = new System.Windows.Forms.Label();
+            this.labelSaveSlot2 = new System.Windows.Forms.Label();
+            this.labelExperience2 = new System.Windows.Forms.Label();
+            this.labelMoney2 = new System.Windows.Forms.Label();
+            this.labelRank2 = new System.Windows.Forms.Label();
+            this.labelSaveDate2 = new System.Windows.Forms.Label();
+            this.labelExperienceLabel2 = new System.Windows.Forms.Label();
+            this.labelMoneyLabel2 = new System.Windows.Forms.Label();
+            this.labelRankLabel2 = new System.Windows.Forms.Label();
+            this.labelSaveDateLabel2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -232,90 +260,370 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.labelExperience);
-            this.panel1.Controls.Add(this.labelMoney);
-            this.panel1.Controls.Add(this.labelRank);
-            this.panel1.Controls.Add(this.labelSaveDate);
-            this.panel1.Controls.Add(this.labelExperienceLabel);
-            this.panel1.Controls.Add(this.labelMoneyLabel);
-            this.panel1.Controls.Add(this.labelRankLabel);
-            this.panel1.Controls.Add(this.labelSaveDateLabel);
+            this.panel1.Controls.Add(this.labelSaveSlot2);
+            this.panel1.Controls.Add(this.labelExperience2);
+            this.panel1.Controls.Add(this.labelMoney2);
+            this.panel1.Controls.Add(this.labelRank2);
+            this.panel1.Controls.Add(this.labelSaveDate2);
+            this.panel1.Controls.Add(this.labelExperienceLabel2);
+            this.panel1.Controls.Add(this.labelMoneyLabel2);
+            this.panel1.Controls.Add(this.labelRankLabel2);
+            this.panel1.Controls.Add(this.labelSaveDateLabel2);
+            this.panel1.Controls.Add(this.labelSaveSlot4);
+            this.panel1.Controls.Add(this.labelExperience4);
+            this.panel1.Controls.Add(this.labelMoney4);
+            this.panel1.Controls.Add(this.labelRank4);
+            this.panel1.Controls.Add(this.labelSaveDate4);
+            this.panel1.Controls.Add(this.labelExperienceLabel4);
+            this.panel1.Controls.Add(this.labelMoneyLabel4);
+            this.panel1.Controls.Add(this.labelRankLabel4);
+            this.panel1.Controls.Add(this.labellabelSaveDateLabel4);
+            this.panel1.Controls.Add(this.labelSaveSlot3);
+            this.panel1.Controls.Add(this.labelExperience3);
+            this.panel1.Controls.Add(this.labelMoney3);
+            this.panel1.Controls.Add(this.labelRank3);
+            this.panel1.Controls.Add(this.labelSaveDate3);
+            this.panel1.Controls.Add(this.labelExperienceLabel3);
+            this.panel1.Controls.Add(this.labelMoneyLabel3);
+            this.panel1.Controls.Add(this.labelRankLabel3);
+            this.panel1.Controls.Add(this.labelSaveDateLabel3);
+            this.panel1.Controls.Add(this.labelSaveSlot1);
+            this.panel1.Controls.Add(this.labelExperience1);
+            this.panel1.Controls.Add(this.labelMoney1);
+            this.panel1.Controls.Add(this.labelRank1);
+            this.panel1.Controls.Add(this.labelSaveDate1);
+            this.panel1.Controls.Add(this.labelExperienceLabel1);
+            this.panel1.Controls.Add(this.labelMoneyLabel1);
+            this.panel1.Controls.Add(this.labelRankLabel1);
+            this.panel1.Controls.Add(this.labelSaveDateLabel1);
             this.panel1.Location = new System.Drawing.Point(3, 32);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(399, 355);
             this.panel1.TabIndex = 5;
             // 
-            // labelExperience
+            // labelExperience1
             // 
-            this.labelExperience.Location = new System.Drawing.Point(79, 46);
-            this.labelExperience.Name = "labelExperience";
-            this.labelExperience.Size = new System.Drawing.Size(140, 15);
-            this.labelExperience.TabIndex = 7;
-            this.labelExperience.Text = "----";
-            this.labelExperience.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelExperience1.Location = new System.Drawing.Point(79, 58);
+            this.labelExperience1.Name = "labelExperience1";
+            this.labelExperience1.Size = new System.Drawing.Size(140, 15);
+            this.labelExperience1.TabIndex = 7;
+            this.labelExperience1.Text = "----";
+            this.labelExperience1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelMoney
+            // labelMoney1
             // 
-            this.labelMoney.Location = new System.Drawing.Point(79, 32);
-            this.labelMoney.Name = "labelMoney";
-            this.labelMoney.Size = new System.Drawing.Size(140, 15);
-            this.labelMoney.TabIndex = 6;
-            this.labelMoney.Text = "----";
-            this.labelMoney.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelMoney1.Location = new System.Drawing.Point(79, 44);
+            this.labelMoney1.Name = "labelMoney1";
+            this.labelMoney1.Size = new System.Drawing.Size(140, 15);
+            this.labelMoney1.TabIndex = 6;
+            this.labelMoney1.Text = "----";
+            this.labelMoney1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelRank
+            // labelRank1
             // 
-            this.labelRank.Location = new System.Drawing.Point(79, 18);
-            this.labelRank.Name = "labelRank";
-            this.labelRank.Size = new System.Drawing.Size(140, 15);
-            this.labelRank.TabIndex = 5;
-            this.labelRank.Text = "----";
-            this.labelRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelRank1.Location = new System.Drawing.Point(79, 30);
+            this.labelRank1.Name = "labelRank1";
+            this.labelRank1.Size = new System.Drawing.Size(140, 15);
+            this.labelRank1.TabIndex = 5;
+            this.labelRank1.Text = "----";
+            this.labelRank1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelSaveDate
+            // labelSaveDate1
             // 
-            this.labelSaveDate.Location = new System.Drawing.Point(79, 3);
-            this.labelSaveDate.Name = "labelSaveDate";
-            this.labelSaveDate.Size = new System.Drawing.Size(140, 15);
-            this.labelSaveDate.TabIndex = 4;
-            this.labelSaveDate.Text = "----";
-            this.labelSaveDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelSaveDate1.Location = new System.Drawing.Point(79, 15);
+            this.labelSaveDate1.Name = "labelSaveDate1";
+            this.labelSaveDate1.Size = new System.Drawing.Size(140, 15);
+            this.labelSaveDate1.TabIndex = 4;
+            this.labelSaveDate1.Text = "----";
+            this.labelSaveDate1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelExperienceLabel
+            // labelExperienceLabel1
             // 
-            this.labelExperienceLabel.Location = new System.Drawing.Point(3, 48);
-            this.labelExperienceLabel.Name = "labelExperienceLabel";
-            this.labelExperienceLabel.Size = new System.Drawing.Size(70, 13);
-            this.labelExperienceLabel.TabIndex = 3;
-            this.labelExperienceLabel.Text = "Experience:";
-            this.labelExperienceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelExperienceLabel1.Location = new System.Drawing.Point(3, 60);
+            this.labelExperienceLabel1.Name = "labelExperienceLabel1";
+            this.labelExperienceLabel1.Size = new System.Drawing.Size(70, 13);
+            this.labelExperienceLabel1.TabIndex = 3;
+            this.labelExperienceLabel1.Text = "Experience:";
+            this.labelExperienceLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelMoneyLabel
+            // labelMoneyLabel1
             // 
-            this.labelMoneyLabel.Location = new System.Drawing.Point(3, 33);
-            this.labelMoneyLabel.Name = "labelMoneyLabel";
-            this.labelMoneyLabel.Size = new System.Drawing.Size(70, 15);
-            this.labelMoneyLabel.TabIndex = 2;
-            this.labelMoneyLabel.Text = "Money:";
-            this.labelMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelMoneyLabel1.Location = new System.Drawing.Point(3, 45);
+            this.labelMoneyLabel1.Name = "labelMoneyLabel1";
+            this.labelMoneyLabel1.Size = new System.Drawing.Size(70, 15);
+            this.labelMoneyLabel1.TabIndex = 2;
+            this.labelMoneyLabel1.Text = "Money:";
+            this.labelMoneyLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelRankLabel
+            // labelRankLabel1
             // 
-            this.labelRankLabel.Location = new System.Drawing.Point(3, 18);
-            this.labelRankLabel.Name = "labelRankLabel";
-            this.labelRankLabel.Size = new System.Drawing.Size(70, 15);
-            this.labelRankLabel.TabIndex = 1;
-            this.labelRankLabel.Text = "Rank:";
-            this.labelRankLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelRankLabel1.Location = new System.Drawing.Point(3, 30);
+            this.labelRankLabel1.Name = "labelRankLabel1";
+            this.labelRankLabel1.Size = new System.Drawing.Size(70, 15);
+            this.labelRankLabel1.TabIndex = 1;
+            this.labelRankLabel1.Text = "Rank:";
+            this.labelRankLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelSaveDateLabel
+            // labelSaveDateLabel1
             // 
-            this.labelSaveDateLabel.Location = new System.Drawing.Point(3, 3);
-            this.labelSaveDateLabel.Name = "labelSaveDateLabel";
-            this.labelSaveDateLabel.Size = new System.Drawing.Size(70, 15);
-            this.labelSaveDateLabel.TabIndex = 0;
-            this.labelSaveDateLabel.Text = "Last Saved:";
-            this.labelSaveDateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelSaveDateLabel1.Location = new System.Drawing.Point(3, 15);
+            this.labelSaveDateLabel1.Name = "labelSaveDateLabel1";
+            this.labelSaveDateLabel1.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveDateLabel1.TabIndex = 0;
+            this.labelSaveDateLabel1.Text = "Last Saved:";
+            this.labelSaveDateLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSaveSlot1
+            // 
+            this.labelSaveSlot1.Location = new System.Drawing.Point(3, 0);
+            this.labelSaveSlot1.Name = "labelSaveSlot1";
+            this.labelSaveSlot1.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveSlot1.TabIndex = 16;
+            this.labelSaveSlot1.Text = "Save Slot 1";
+            this.labelSaveSlot1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSaveSlot3
+            // 
+            this.labelSaveSlot3.Location = new System.Drawing.Point(3, 166);
+            this.labelSaveSlot3.Name = "labelSaveSlot3";
+            this.labelSaveSlot3.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveSlot3.TabIndex = 25;
+            this.labelSaveSlot3.Text = "Save Slot 3";
+            this.labelSaveSlot3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelExperience3
+            // 
+            this.labelExperience3.Location = new System.Drawing.Point(79, 224);
+            this.labelExperience3.Name = "labelExperience3";
+            this.labelExperience3.Size = new System.Drawing.Size(140, 15);
+            this.labelExperience3.TabIndex = 24;
+            this.labelExperience3.Text = "----";
+            this.labelExperience3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelMoney3
+            // 
+            this.labelMoney3.Location = new System.Drawing.Point(79, 210);
+            this.labelMoney3.Name = "labelMoney3";
+            this.labelMoney3.Size = new System.Drawing.Size(140, 15);
+            this.labelMoney3.TabIndex = 23;
+            this.labelMoney3.Text = "----";
+            this.labelMoney3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelRank3
+            // 
+            this.labelRank3.Location = new System.Drawing.Point(79, 196);
+            this.labelRank3.Name = "labelRank3";
+            this.labelRank3.Size = new System.Drawing.Size(140, 15);
+            this.labelRank3.TabIndex = 22;
+            this.labelRank3.Text = "----";
+            this.labelRank3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelSaveDate3
+            // 
+            this.labelSaveDate3.Location = new System.Drawing.Point(79, 181);
+            this.labelSaveDate3.Name = "labelSaveDate3";
+            this.labelSaveDate3.Size = new System.Drawing.Size(140, 15);
+            this.labelSaveDate3.TabIndex = 21;
+            this.labelSaveDate3.Text = "----";
+            this.labelSaveDate3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelExperienceLabel3
+            // 
+            this.labelExperienceLabel3.Location = new System.Drawing.Point(3, 226);
+            this.labelExperienceLabel3.Name = "labelExperienceLabel3";
+            this.labelExperienceLabel3.Size = new System.Drawing.Size(70, 13);
+            this.labelExperienceLabel3.TabIndex = 20;
+            this.labelExperienceLabel3.Text = "Experience:";
+            this.labelExperienceLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelMoneyLabel3
+            // 
+            this.labelMoneyLabel3.Location = new System.Drawing.Point(3, 211);
+            this.labelMoneyLabel3.Name = "labelMoneyLabel3";
+            this.labelMoneyLabel3.Size = new System.Drawing.Size(70, 15);
+            this.labelMoneyLabel3.TabIndex = 19;
+            this.labelMoneyLabel3.Text = "Money:";
+            this.labelMoneyLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelRankLabel3
+            // 
+            this.labelRankLabel3.Location = new System.Drawing.Point(3, 196);
+            this.labelRankLabel3.Name = "labelRankLabel3";
+            this.labelRankLabel3.Size = new System.Drawing.Size(70, 15);
+            this.labelRankLabel3.TabIndex = 18;
+            this.labelRankLabel3.Text = "Rank:";
+            this.labelRankLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSaveDateLabel3
+            // 
+            this.labelSaveDateLabel3.Location = new System.Drawing.Point(3, 181);
+            this.labelSaveDateLabel3.Name = "labelSaveDateLabel3";
+            this.labelSaveDateLabel3.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveDateLabel3.TabIndex = 17;
+            this.labelSaveDateLabel3.Text = "Last Saved:";
+            this.labelSaveDateLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSaveSlot4
+            // 
+            this.labelSaveSlot4.Location = new System.Drawing.Point(3, 249);
+            this.labelSaveSlot4.Name = "labelSaveSlot4";
+            this.labelSaveSlot4.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveSlot4.TabIndex = 34;
+            this.labelSaveSlot4.Text = "Save Slot 4";
+            this.labelSaveSlot4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelExperience4
+            // 
+            this.labelExperience4.Location = new System.Drawing.Point(79, 307);
+            this.labelExperience4.Name = "labelExperience4";
+            this.labelExperience4.Size = new System.Drawing.Size(140, 15);
+            this.labelExperience4.TabIndex = 33;
+            this.labelExperience4.Text = "----";
+            this.labelExperience4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelMoney4
+            // 
+            this.labelMoney4.Location = new System.Drawing.Point(79, 293);
+            this.labelMoney4.Name = "labelMoney4";
+            this.labelMoney4.Size = new System.Drawing.Size(140, 15);
+            this.labelMoney4.TabIndex = 32;
+            this.labelMoney4.Text = "----";
+            this.labelMoney4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelRank4
+            // 
+            this.labelRank4.Location = new System.Drawing.Point(79, 279);
+            this.labelRank4.Name = "labelRank4";
+            this.labelRank4.Size = new System.Drawing.Size(140, 15);
+            this.labelRank4.TabIndex = 31;
+            this.labelRank4.Text = "----";
+            this.labelRank4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelSaveDate4
+            // 
+            this.labelSaveDate4.Location = new System.Drawing.Point(79, 264);
+            this.labelSaveDate4.Name = "labelSaveDate4";
+            this.labelSaveDate4.Size = new System.Drawing.Size(140, 15);
+            this.labelSaveDate4.TabIndex = 30;
+            this.labelSaveDate4.Text = "----";
+            this.labelSaveDate4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelExperienceLabel4
+            // 
+            this.labelExperienceLabel4.Location = new System.Drawing.Point(3, 309);
+            this.labelExperienceLabel4.Name = "labelExperienceLabel4";
+            this.labelExperienceLabel4.Size = new System.Drawing.Size(70, 13);
+            this.labelExperienceLabel4.TabIndex = 29;
+            this.labelExperienceLabel4.Text = "Experience:";
+            this.labelExperienceLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelMoneyLabel4
+            // 
+            this.labelMoneyLabel4.Location = new System.Drawing.Point(3, 294);
+            this.labelMoneyLabel4.Name = "labelMoneyLabel4";
+            this.labelMoneyLabel4.Size = new System.Drawing.Size(70, 15);
+            this.labelMoneyLabel4.TabIndex = 28;
+            this.labelMoneyLabel4.Text = "Money:";
+            this.labelMoneyLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelRankLabel4
+            // 
+            this.labelRankLabel4.Location = new System.Drawing.Point(3, 279);
+            this.labelRankLabel4.Name = "labelRankLabel4";
+            this.labelRankLabel4.Size = new System.Drawing.Size(70, 15);
+            this.labelRankLabel4.TabIndex = 27;
+            this.labelRankLabel4.Text = "Rank:";
+            this.labelRankLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labellabelSaveDateLabel4
+            // 
+            this.labellabelSaveDateLabel4.Location = new System.Drawing.Point(3, 264);
+            this.labellabelSaveDateLabel4.Name = "labellabelSaveDateLabel4";
+            this.labellabelSaveDateLabel4.Size = new System.Drawing.Size(70, 15);
+            this.labellabelSaveDateLabel4.TabIndex = 26;
+            this.labellabelSaveDateLabel4.Text = "Last Saved:";
+            this.labellabelSaveDateLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSaveSlot2
+            // 
+            this.labelSaveSlot2.Location = new System.Drawing.Point(3, 84);
+            this.labelSaveSlot2.Name = "labelSaveSlot2";
+            this.labelSaveSlot2.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveSlot2.TabIndex = 43;
+            this.labelSaveSlot2.Text = "Save Slot 2";
+            this.labelSaveSlot2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelExperience2
+            // 
+            this.labelExperience2.Location = new System.Drawing.Point(79, 142);
+            this.labelExperience2.Name = "labelExperience2";
+            this.labelExperience2.Size = new System.Drawing.Size(140, 15);
+            this.labelExperience2.TabIndex = 42;
+            this.labelExperience2.Text = "----";
+            this.labelExperience2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelMoney2
+            // 
+            this.labelMoney2.Location = new System.Drawing.Point(79, 128);
+            this.labelMoney2.Name = "labelMoney2";
+            this.labelMoney2.Size = new System.Drawing.Size(140, 15);
+            this.labelMoney2.TabIndex = 41;
+            this.labelMoney2.Text = "----";
+            this.labelMoney2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelRank2
+            // 
+            this.labelRank2.Location = new System.Drawing.Point(79, 114);
+            this.labelRank2.Name = "labelRank2";
+            this.labelRank2.Size = new System.Drawing.Size(140, 15);
+            this.labelRank2.TabIndex = 40;
+            this.labelRank2.Text = "----";
+            this.labelRank2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelSaveDate2
+            // 
+            this.labelSaveDate2.Location = new System.Drawing.Point(79, 99);
+            this.labelSaveDate2.Name = "labelSaveDate2";
+            this.labelSaveDate2.Size = new System.Drawing.Size(140, 15);
+            this.labelSaveDate2.TabIndex = 39;
+            this.labelSaveDate2.Text = "----";
+            this.labelSaveDate2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelExperienceLabel2
+            // 
+            this.labelExperienceLabel2.Location = new System.Drawing.Point(3, 144);
+            this.labelExperienceLabel2.Name = "labelExperienceLabel2";
+            this.labelExperienceLabel2.Size = new System.Drawing.Size(70, 13);
+            this.labelExperienceLabel2.TabIndex = 38;
+            this.labelExperienceLabel2.Text = "Experience:";
+            this.labelExperienceLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelMoneyLabel2
+            // 
+            this.labelMoneyLabel2.Location = new System.Drawing.Point(3, 129);
+            this.labelMoneyLabel2.Name = "labelMoneyLabel2";
+            this.labelMoneyLabel2.Size = new System.Drawing.Size(70, 15);
+            this.labelMoneyLabel2.TabIndex = 37;
+            this.labelMoneyLabel2.Text = "Money:";
+            this.labelMoneyLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelRankLabel2
+            // 
+            this.labelRankLabel2.Location = new System.Drawing.Point(3, 114);
+            this.labelRankLabel2.Name = "labelRankLabel2";
+            this.labelRankLabel2.Size = new System.Drawing.Size(70, 15);
+            this.labelRankLabel2.TabIndex = 36;
+            this.labelRankLabel2.Text = "Rank:";
+            this.labelRankLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelSaveDateLabel2
+            // 
+            this.labelSaveDateLabel2.Location = new System.Drawing.Point(3, 99);
+            this.labelSaveDateLabel2.Name = "labelSaveDateLabel2";
+            this.labelSaveDateLabel2.Size = new System.Drawing.Size(70, 15);
+            this.labelSaveDateLabel2.TabIndex = 35;
+            this.labelSaveDateLabel2.Text = "Last Saved:";
+            this.labelSaveDateLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmMain
             // 
@@ -362,14 +670,42 @@
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Label labelSaveGames;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labelExperience;
-        private System.Windows.Forms.Label labelMoney;
-        private System.Windows.Forms.Label labelRank;
-        private System.Windows.Forms.Label labelSaveDate;
-        private System.Windows.Forms.Label labelExperienceLabel;
-        private System.Windows.Forms.Label labelMoneyLabel;
-        private System.Windows.Forms.Label labelRankLabel;
-        private System.Windows.Forms.Label labelSaveDateLabel;
+        private System.Windows.Forms.Label labelExperience1;
+        private System.Windows.Forms.Label labelMoney1;
+        private System.Windows.Forms.Label labelRank1;
+        private System.Windows.Forms.Label labelSaveDate1;
+        private System.Windows.Forms.Label labelExperienceLabel1;
+        private System.Windows.Forms.Label labelMoneyLabel1;
+        private System.Windows.Forms.Label labelRankLabel1;
+        private System.Windows.Forms.Label labelSaveDateLabel1;
+        private System.Windows.Forms.Label labelSaveSlot2;
+        private System.Windows.Forms.Label labelExperience2;
+        private System.Windows.Forms.Label labelMoney2;
+        private System.Windows.Forms.Label labelRank2;
+        private System.Windows.Forms.Label labelSaveDate2;
+        private System.Windows.Forms.Label labelExperienceLabel2;
+        private System.Windows.Forms.Label labelMoneyLabel2;
+        private System.Windows.Forms.Label labelRankLabel2;
+        private System.Windows.Forms.Label labelSaveDateLabel2;
+        private System.Windows.Forms.Label labelSaveSlot4;
+        private System.Windows.Forms.Label labelExperience4;
+        private System.Windows.Forms.Label labelMoney4;
+        private System.Windows.Forms.Label labelRank4;
+        private System.Windows.Forms.Label labelSaveDate4;
+        private System.Windows.Forms.Label labelExperienceLabel4;
+        private System.Windows.Forms.Label labelMoneyLabel4;
+        private System.Windows.Forms.Label labelRankLabel4;
+        private System.Windows.Forms.Label labellabelSaveDateLabel4;
+        private System.Windows.Forms.Label labelSaveSlot3;
+        private System.Windows.Forms.Label labelExperience3;
+        private System.Windows.Forms.Label labelMoney3;
+        private System.Windows.Forms.Label labelRank3;
+        private System.Windows.Forms.Label labelSaveDate3;
+        private System.Windows.Forms.Label labelExperienceLabel3;
+        private System.Windows.Forms.Label labelMoneyLabel3;
+        private System.Windows.Forms.Label labelRankLabel3;
+        private System.Windows.Forms.Label labelSaveDateLabel3;
+        private System.Windows.Forms.Label labelSaveSlot1;
     }
 }
 
