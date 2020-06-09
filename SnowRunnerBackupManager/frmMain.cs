@@ -114,7 +114,7 @@ namespace SnowRunnerBackupManager
                     {
                         JObject saveGameData = (JObject)JToken.ReadFrom(reader);
 
-                        labelSaveDate.Text = File.GetLastWriteTime(jsonFile).ToString("MM/dd/yyyy hh:mm tt");
+                        labelSaveDate.Text = saveGame.saveDate.ToString("MM/dd/yyyy hh:mm tt");
                         labelRank.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
                         labelExperience.Text = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
                         labelMoney.Text = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
