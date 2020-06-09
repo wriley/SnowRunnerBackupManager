@@ -116,7 +116,16 @@ namespace SnowRunnerBackupManager
         {
             if(!Directory.Exists(saveGamePath))
             {
-                DebugLog("Save game path not found, check options!");
+                try
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(saveGamePath);
+                    DebugLog("Save game path was not found so it was created: " + saveGamePath);
+                }
+                catch (Exception ex)
+                {
+                    DebugLog("Unable to create save game directory " + saveGamePath);
+                    DebugLog(ex.Message);
+                }
                 return;
             }
 
@@ -425,7 +434,7 @@ namespace SnowRunnerBackupManager
         {
             if (!Directory.Exists(saveGamePath))
             {
-                DebugLog("Save game path not found, check options!");
+                DebugLog("Save game path not found! " + saveGamePath);
                 return;
             }
             if (treeViewBackups.SelectedNode != null)
@@ -498,6 +507,11 @@ namespace SnowRunnerBackupManager
 
         private void UnzipFile(string zipFile, string targetDir)
         {
+            if (!Directory.Exists(targetDir))
+            {
+                DebugLog("Save game path not found! " + targetDir);
+                return;
+            }
             try
             {
                 using (ZipInputStream s = new ZipInputStream(File.OpenRead(zipFile)))
