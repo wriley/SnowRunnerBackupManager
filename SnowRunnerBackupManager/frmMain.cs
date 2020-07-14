@@ -246,10 +246,17 @@ namespace SnowRunnerBackupManager
                     if (m.Success && m.Groups[1].Value != null)
                     {
                         DebugLog("Getting info from zip " + fileName);
+                        SnowRunnerSaveGame save = new SnowRunnerSaveGame();
+                        save.backupName = fileName;
+                        save.saveDate1 = File.GetCreationTime(backupFile);
+                        save.saveDate2 = save.saveDate1;
+                        save.saveDate3 = save.saveDate1;
+                        save.saveDate4 = save.saveDate1;
+
                         using (ZipInputStream s = new ZipInputStream(File.OpenRead(backupFile)))
                         {
                             ZipEntry theEntry;
-                            SnowRunnerSaveGame save = new SnowRunnerSaveGame();
+                            
                             while ((theEntry = s.GetNextEntry()) != null)
                             {
                                 if (theEntry.Name == "CompleteSave.dat")
@@ -257,14 +264,9 @@ namespace SnowRunnerBackupManager
                                     StreamReader sReader = new StreamReader(s);
                                     JsonTextReader reader = new JsonTextReader(sReader);
                                     JObject saveGameData = (JObject)JToken.ReadFrom(reader);
-
-                                    save.backupName = fileName;
-                                    save.saveDate1 = File.GetCreationTime(backupFile);
                                     save.rank1 = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.rank");
                                     save.experience1 = GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.experience");
                                     save.money1 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave.SslValue.persistentProfileData.money")));
-                                    backupSaveGames.Add(save);
-                                   
                                 }
 
                                 if (theEntry.Name == "CompleteSave1.dat")
@@ -272,14 +274,9 @@ namespace SnowRunnerBackupManager
                                     StreamReader sReader = new StreamReader(s);
                                     JsonTextReader reader = new JsonTextReader(sReader);
                                     JObject saveGameData = (JObject)JToken.ReadFrom(reader);
-
-                                    save.backupName = fileName;
-                                    save.saveDate2 = File.GetCreationTime(backupFile);
                                     save.rank2 = GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.rank");
                                     save.experience2 = GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.experience");
                                     save.money2 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave1.SslValue.persistentProfileData.money")));
-                                    backupSaveGames.Add(save);
-
                                 }
 
                                 if (theEntry.Name == "CompleteSave2.dat")
@@ -287,14 +284,9 @@ namespace SnowRunnerBackupManager
                                     StreamReader sReader = new StreamReader(s);
                                     JsonTextReader reader = new JsonTextReader(sReader);
                                     JObject saveGameData = (JObject)JToken.ReadFrom(reader);
-
-                                    save.backupName = fileName;
-                                    save.saveDate3 = File.GetCreationTime(backupFile);
                                     save.rank3 = GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.rank");
                                     save.experience3 = GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.experience");
                                     save.money3 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave2.SslValue.persistentProfileData.money")));
-                                    backupSaveGames.Add(save);
-
                                 }
 
                                 if (theEntry.Name == "CompleteSave3.dat")
@@ -302,18 +294,15 @@ namespace SnowRunnerBackupManager
                                     StreamReader sReader = new StreamReader(s);
                                     JsonTextReader reader = new JsonTextReader(sReader);
                                     JObject saveGameData = (JObject)JToken.ReadFrom(reader);
-
-                                    save.backupName = fileName;
-                                    save.saveDate4 = File.GetCreationTime(backupFile);
                                     save.rank4 = GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.rank");
                                     save.experience4 = GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.experience");
                                     save.money4 = String.Format("{0:n0}", Int32.Parse(GetStringFromJObject(saveGameData, "CompleteSave3.SslValue.persistentProfileData.money")));
-                                    backupSaveGames.Add(save);
-
                                 }
                             }
                             s.Close();
                         }
+
+                        backupSaveGames.Add(save);
                     }
                 }
             }
